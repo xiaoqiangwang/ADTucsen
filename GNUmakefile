@@ -6,6 +6,7 @@ SOURCES += tucsenApp/src/tucsen.cpp
 
 DBDS += tucsenApp/src/tucsenSupport.dbd
 
+USR_CPPFLAGS_Linux += -DLINUX
 USR_CPPFLAGS_WIN32 += -D_WIN64
 USR_INCLUDES += -I ../tucsenSupport
 
@@ -15,6 +16,7 @@ SHRLIBS_WIN32 += tucsenSupport/os/windows-x64/TUCam.dll
 
 USR_LDFLAGS_Linux += -L../tucsenSupport/os/linux-x86_64
 SHRLIBS_Linux += tucsenSupport/os/linux-x86_64/libTUCam.so.1
+SHRLIBS_Linux += tucsenSupport/os/linux-x86_64/libphxapi-x86_64.so
 USR_SYS_LIBS_Linux += TUCam
 
 TEMPLATES += tucsenApp/Db/tucsen.template
