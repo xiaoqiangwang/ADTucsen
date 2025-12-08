@@ -556,7 +556,7 @@ asynStatus tucsen::grabImage()
 {
     static const char* functionName = "grabImage";
     asynStatus status = asynSuccess;
-    int tucStatus;
+    TUCAMRET tucStatus;
     int nCols, nRows;
     int pixelFormat, channels, pixelBytes;
     size_t dataSize, tDataSize;
@@ -576,9 +576,10 @@ asynStatus tucsen::grabImage()
     tucStatus = TUCAM_Buf_WaitForFrame(camHandle_.hIdxTUCam, &frameHandle_);
     lock();
     if (tucStatus!= TUCAMRET_SUCCESS){
-        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-                "%s:%s: failed to wait for buffer (0x%x)\n",
-                driverName, functionName, tucStatus);
+        if (tucStatus != TUCAMRET_ABORT)
+            asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+                    "%s:%s: failed to wait for buffer (0x%x)\n",
+                    driverName, functionName, tucStatus);
         return asynError;
     }
 
